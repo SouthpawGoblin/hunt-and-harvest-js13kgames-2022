@@ -1,0 +1,29 @@
+{
+  "name": "die-hard-apocalypse-js13k-2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SouthpawGoblin/SPACE-craft-js13k-2021.git",
+  "author": "Roger Chi <goblin-qyz@163.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@webpack-cli/generators": "^2.5.0",
+    "html-webpack-plugin": "^5.5.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.0"
+  },
+  "dependencies": {
+    "kontra": "^8.0.0"
+  },
+  "description": "die-hard-apocalypse-js13k-2022",
+  "scripts": {
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
+  }
+}
