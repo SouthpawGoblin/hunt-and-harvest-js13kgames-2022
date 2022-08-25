@@ -1,21 +1,22 @@
-import { Scene, Sprite } from "kontra"
-import CONSTS from "./consts"
-import { spriteFactory, SPRITE_TYPE } from "./sprites"
+import { Scene, Vector } from "kontra"
+import PlayerHunter from './sprites/player-hunter'
+import PlayerDeath from './sprites/player-death'
 
 const initScene = () => {
-  const sprites: Sprite[] = []
-  let heroShip: Sprite
+  const playerCoord = Vector(100, 300)
+  const playerHunter = PlayerHunter(playerCoord)
+  const playerDeath = PlayerDeath(playerCoord)
 
   const scene = Scene({
     id: 'main',
-    objects: sprites,
+    objects: [
+      playerHunter,
+      playerDeath,
+    ],
     cullObjects: false,
   })
 
-  return {
-    scene,
-    heroShip,
-  }
+  return scene
 }
 
 export default initScene
