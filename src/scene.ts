@@ -1,19 +1,72 @@
-import { Scene, Vector } from "kontra"
+import { initKeys, initPointer, onKey, onPointer, Scene, Vector } from "kontra"
+import CONSTS from './consts'
 import PlayerHunter from './sprites/player-hunter'
 import PlayerDeath from './sprites/player-death'
+import Land from './sprites/land'
 
-const initScene = () => {
-  const playerCoord = Vector(100, 300)
-  const playerHunter = PlayerHunter(playerCoord)
-  const playerDeath = PlayerDeath(playerCoord)
-
+const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
+  const land = Land(canvas.height / 2, canvas.width)
+  const playerHunter = PlayerHunter(Vector(200, canvas.height / 2 - land.height / 2))
+  const playerDeath = PlayerDeath(Vector(200, canvas.height / 2 + land.height / 2))
+  
   const scene = Scene({
     id: 'main',
     objects: [
+      land,
       playerHunter,
       playerDeath,
     ],
     cullObjects: false,
+  })
+  
+  initKeys()
+  onKey('space', function() {
+    if (playerHunter.ddy === 0) {
+      playerHunter.dy = -CONSTS.PLAYER_JUMP_VELOCITY
+      playerHunter.ddy = 2000
+    }
+    if (playerDeath.ddy === 0) {
+      playerDeath.dy = CONSTS.PLAYER_JUMP_VELOCITY
+      playerDeath.ddy = -2000
+    }
+  })
+  onKey(['a', 'left'], function() {
+    if (playerHunter.dx === 0) {
+      playerHunter.dx = -CONSTS.PLAYER_MOVE_VELOCITY
+    }
+    if (playerDeath.dx === 0) {
+      playerDeath.dx = -CONSTS.PLAYER_MOVE_VELOCITY
+    }
+  }, { handler: 'keydown' })
+  onKey(['a', 'left'], function() {
+    if (playerHunter.dx < 0) {
+      playerHunter.dx = 0
+    }
+    if (playerDeath.dx < 0) {
+      playerDeath.dx = 0
+    }
+  }, { handler: 'keyup' })
+  
+  onKey(['d', 'right'], function() {
+    if (playerHunter.dx === 0) {
+      playerHunter.dx = CONSTS.PLAYER_MOVE_VELOCITY
+    }
+    if (playerDeath.dx === 0) {
+      playerDeath.dx = CONSTS.PLAYER_MOVE_VELOCITY
+    }
+  }, { handler: 'keydown' })
+  onKey(['d', 'right'], function() {
+    if (playerHunter.dx > 0) {
+      playerHunter.dx = 0
+    }
+    if (playerDeath.dx > 0) {
+      playerDeath.dx = 0
+    }
+  }, { handler: 'keyup' })
+
+  initPointer()
+  onPointer('up', function() {
+    playerHunter.shoot(scene)
   })
 
   return scene

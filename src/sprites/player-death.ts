@@ -1,16 +1,25 @@
 import { Sprite, Vector } from "kontra";
+import CONSTS from "../consts";
 
 export default function PlayerDeath(coord: Vector) {
+  const initialCoord = coord
+
   return Sprite({
     x: coord.x,
     y: coord.y,
-    width: 100,
-    height: 300,
-    anchor: { x: 0.5, y: 0 },
+    width: CONSTS.PLAYER_WIDTH,
+    height: CONSTS.PLAYER_HEIGHT,
+    anchor: { x: 0, y: 0 },
     color: 'red',
 
-    update() {
-      
-    }
+    update: function(dt) {
+      this.advance(dt)
+
+      if (this.y < initialCoord.y) {
+        this.y = initialCoord.y
+        this.dy = 0
+        this.ddy = 0
+      }
+    },
   })
 }
