@@ -1,5 +1,6 @@
 import { initKeys, initPointer, onKey, onPointer, Scene, Vector } from "kontra"
 import CONSTS from './consts'
+import Director from './director'
 import PlayerHunter from './sprites/player-hunter'
 import PlayerDeath from './sprites/player-death'
 import Land from './sprites/land'
@@ -18,6 +19,9 @@ const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)
     ],
     cullObjects: false,
   })
+
+  const director = Director(scene)
+  scene.add(director)
   
   initKeys()
   onKey('space', function() {
@@ -65,8 +69,14 @@ const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)
   }, { handler: 'keyup' })
 
   initPointer()
-  onPointer('up', function() {
-    playerHunter.shoot(scene)
+  onPointer('up', function(event: MouseEvent) {
+    if (event.button === 0) {
+      // left click
+      playerHunter.shoot(scene)
+    } else if (event.button === 2) {
+      // right click
+      playerDeath.harvest()
+    }
   })
 
   return scene

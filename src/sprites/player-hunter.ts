@@ -4,7 +4,7 @@ import Bullet from './bullet';
 
 export default function PlayerHunter(coord: Vector) {
   const initialCoord = coord
-  let timeout: any = null
+  let attackTimeout: any = null
 
   return Sprite({
     x: coord.x,
@@ -26,10 +26,10 @@ export default function PlayerHunter(coord: Vector) {
     },
 
     shoot: function(scene: Scene) {
-      if (timeout) {
+      if (attackTimeout) {
         return
       }
-      timeout = setTimeout(() => timeout = null, CONSTS.BULLET_THROTTLE)
+      attackTimeout = setTimeout(() => attackTimeout = null, CONSTS.BULLET_THROTTLE)
       // TODO: use Pool
       const bullet = Bullet(Vector(this.x + this.width, this.y - this.height * 0.6), scene)
       scene.add(bullet)

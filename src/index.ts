@@ -29,4 +29,4 @@ const onLoad = () => {
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', resizeCanvas);
-
+window.addEventListener('contextmenu', (event) => event.preventDefault());
