@@ -1,4 +1,5 @@
 import { GameObject, Scene, Vector } from "kontra";
+import CONSTS from "./consts";
 import EnemyWalker from "./sprites/enemy-walker";
 
 export default function Director(scene: Scene) {
@@ -13,10 +14,11 @@ export default function Director(scene: Scene) {
     update: function(dt) {
       this.gameTime += dt
 
-      if (this.gameTime > 5) {
+      // spawn walker
+      if (this.gameTime % 5) {
         console.log('spawn')
-        // FIXME: enemy y coord
-        const enemyWalker = EnemyWalker(Vector(300, 447))
+        const canvas = scene.context.canvas
+        const enemyWalker = EnemyWalker(Vector(canvas.width - 300, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2))
         scene.add(enemyWalker)
         console.log(scene.objects)
         this.gameTime = 0

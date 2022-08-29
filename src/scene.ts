@@ -7,8 +7,8 @@ import Land from './sprites/land'
 
 const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
   const land = Land(canvas.height / 2, canvas.width)
-  const playerHunter = PlayerHunter(Vector(200, canvas.height / 2 - land.height / 2))
-  const playerDeath = PlayerDeath(Vector(200, canvas.height / 2 + land.height / 2))
+  const playerHunter = PlayerHunter(Vector(200, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2))
+  const playerDeath = PlayerDeath(Vector(200, canvas.height / 2 + CONSTS.LAND_THICKNESS / 2))
   
   const scene = Scene({
     id: 'main',
