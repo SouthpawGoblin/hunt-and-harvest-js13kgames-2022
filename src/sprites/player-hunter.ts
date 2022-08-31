@@ -15,6 +15,9 @@ export default function PlayerHunter(coord: Vector) {
     color: 'blue',
     ttl: 5,
 
+    type: CONSTS.PLAYER_TYPE,
+    health: CONSTS.PLAYER_HUNTER_MAX_HEALTH,
+
     update: function(dt) {
       this.advance(dt)
 

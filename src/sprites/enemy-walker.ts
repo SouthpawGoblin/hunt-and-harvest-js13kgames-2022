@@ -11,6 +11,9 @@ export default function EnemyWalker(coord: Vector) {
     color: 'green',
     dx: -CONSTS.WALKER_MOVE_VELOCITY,
 
+    type: CONSTS.ENEMY_TYPE,
+    health: CONSTS.WALKER_MAX_HEALTH,
+
     update: function(dt) {
       this.advance(dt)
       // collision detection

@@ -1,4 +1,4 @@
-import { Scene, Sprite, Vector } from "kontra";
+import { Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 import HarvestCrescent from './harvest-crescent';
 
@@ -13,6 +13,9 @@ export default function PlayerDeath(coord: Vector) {
     height: CONSTS.PLAYER_HEIGHT,
     anchor: { x: 0, y: 0 },
     color: 'red',
+
+    type: CONSTS.PLAYER_TYPE,
+    health: CONSTS.PLAYER_DEATH_MAX_HEALTH,
 
     update: function(dt) {
       this.advance(dt)

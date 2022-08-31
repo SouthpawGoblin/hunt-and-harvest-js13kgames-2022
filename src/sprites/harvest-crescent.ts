@@ -12,6 +12,9 @@ export default function HarvestCrescent(coord: Vector, player: Sprite) {
     anchor: { x: 0, y: 0 },
     color: 'yellow',
 
+    type: CONSTS.ATTACK_TYPE,
+    damage: CONSTS.CRESCENT_DAMAGE,
+
     render: function() {
       const ctx: CanvasRenderingContext2D = this.context
       ctx.strokeStyle = this.color
