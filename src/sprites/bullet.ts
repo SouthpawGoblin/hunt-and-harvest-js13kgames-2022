@@ -1,5 +1,6 @@
 import { collides, Scene, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
+import EnemyWalkerGhost from "./enemy-walker-ghost";
 
 export default function Bullet(coord: Vector, scene: Scene) {
   const initialCoord = coord
@@ -28,7 +29,10 @@ export default function Bullet(coord: Vector, scene: Scene) {
             scene.remove(this)
             sprite.health -= this.damage
             if (sprite.health <= 0) {
+              // generate a walker ghost
+              const ghost = EnemyWalkerGhost(Vector(sprite.x, sprite.y + CONSTS.LAND_THICKNESS))
               scene.remove(sprite)
+              scene.add(ghost)
             }
             break
           }

@@ -1,14 +1,15 @@
-import { Sprite, Vector } from "kontra";
+import { collides, Scene, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 
-export default function HarvestCrescent(coord: Vector, player: Sprite) {
+export default function HarvestCrescent(coord: Vector, player: Sprite, scene: Scene) {
   let lifeTime = 0
+  let hit = false
 
   return Sprite({
     x: coord.x,
     y: coord.y,
-    width: CONSTS.BULLET_WIDTH,
-    height: CONSTS.BULLET_HEIGHT,
+    width: CONSTS.CRESCENT_WIDTH,
+    height: CONSTS.CRESCENT_HEIGHT,
     anchor: { x: 0, y: 0 },
     color: 'yellow',
 
@@ -31,6 +32,18 @@ export default function HarvestCrescent(coord: Vector, player: Sprite) {
         lifeTime = 0
       } else {
         lifeTime += dt || 0
+        if (!hit) {
+          for (let obj of scene.objects) {
+            const sprite = obj as Sprite
+            if (sprite.type === CONSTS.ENEMY_TYPE && collides(this, sprite)) {
+              hit = true
+              sprite.health -= this.damage
+              if (sprite.health <= 0) {
+                scene.remove(sprite)
+              }
+            }
+          }
+        }
       }
     },
   })
