@@ -1,7 +1,8 @@
-import { Sprite, Vector } from "kontra";
+import { Scene, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
+import GhostFire from './ghost_fire'
 
-export default function EnemyWalkerGhost(coord: Vector) {
+export default function EnemyWalkerGhost(coord: Vector, scene: Scene) {
   let attackTimeout: any = null
 
   return Sprite({
@@ -18,15 +19,11 @@ export default function EnemyWalkerGhost(coord: Vector) {
 
     update: function(dt) {
       this.advance(dt)
-      // if (!attackTimeout) {
-      //   attackTimeout = setTimeout(() => attackTimeout = null, CONSTS.WALKER_ATTACK_THROTTLE)
-      //   sprite.health -= this.damage
-      //   console.log('hunter hp', sprite.health)
-      //   if (sprite.health <= 0) {
-      //     alert('YOU LOSE')
-      //     // TODO:
-      //   }
-      // }
+      if (!attackTimeout) {
+        attackTimeout = setTimeout(() => attackTimeout = null, CONSTS.WALKER_GHOST_ATTACK_INTERVAL)
+        const fire = GhostFire(Vector(this.x, this.y + this.height / 2), scene)
+        scene.add(fire)
+      }
     },
   })
 }

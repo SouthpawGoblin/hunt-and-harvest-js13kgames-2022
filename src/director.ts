@@ -15,10 +15,10 @@ export default function Director(scene: Scene) {
       this.gameTime += dt
 
       // spawn walker
-      if (this.gameTime > 5) {
+      if (this.gameTime > 2) {
         console.log('spawn')
         const canvas = scene.context.canvas
-        const enemyWalker = EnemyWalker(Vector(canvas.width - 300, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2), scene)
+        const enemyWalker = EnemyWalker(Vector(canvas.width - 800, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2), scene, true)
         scene.add(enemyWalker)
         console.log(scene.objects)
         this.gameTime = 0

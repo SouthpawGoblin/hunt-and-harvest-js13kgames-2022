@@ -25,11 +25,11 @@ const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)
   onKey('space', function() {
     if (playerHunter.ddy === 0) {
       playerHunter.dy = -CONSTS.PLAYER_JUMP_VELOCITY
-      playerHunter.ddy = 2000
+      playerHunter.ddy = CONSTS.GRAVITY_DDY
     }
     if (playerDeath.ddy === 0) {
       playerDeath.dy = CONSTS.PLAYER_JUMP_VELOCITY
-      playerDeath.ddy = -2000
+      playerDeath.ddy = -CONSTS.GRAVITY_DDY
     }
   })
   onKey(['a', 'left'], function() {

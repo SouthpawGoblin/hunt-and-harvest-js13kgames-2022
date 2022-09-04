@@ -30,7 +30,7 @@ export default function Bullet(coord: Vector, scene: Scene) {
             sprite.health -= this.damage
             if (sprite.health <= 0) {
               // generate a walker ghost
-              const ghost = EnemyWalkerGhost(Vector(sprite.x, sprite.y + CONSTS.LAND_THICKNESS))
+              const ghost = EnemyWalkerGhost(Vector(sprite.x, sprite.initCoord.y + CONSTS.LAND_THICKNESS * 2), scene)
               scene.remove(sprite)
               scene.add(ghost)
             }
