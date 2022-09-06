@@ -1,8 +1,8 @@
-import { Scene, Sprite, Vector } from "kontra";
+import { GameObject, Scene, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 import GhostFire from './ghost_fire'
 
-export default function EnemyWalkerGhost(coord: Vector, scene: Scene) {
+export default function EnemyWalkerGhost(coord: Vector, group: GameObject) {
   let attackTimeout: any = null
 
   return Sprite({
@@ -21,8 +21,8 @@ export default function EnemyWalkerGhost(coord: Vector, scene: Scene) {
       this.advance(dt)
       if (!attackTimeout) {
         attackTimeout = setTimeout(() => attackTimeout = null, CONSTS.WALKER_GHOST_ATTACK_INTERVAL)
-        const fire = GhostFire(Vector(this.x, this.y + this.height / 2), scene)
-        scene.add(fire)
+        const fire = GhostFire(Vector(this.x, this.y + this.height / 2), group)
+        group.addChild(fire)
       }
     },
   })

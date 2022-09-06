@@ -1,8 +1,8 @@
-import { Scene, Sprite, Vector } from "kontra";
+import { GameObject, Scene, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 import HarvestCrescent from './harvest-crescent';
 
-export default function PlayerDeath(coord: Vector, scene: Scene) {
+export default function PlayerDeath(coord: Vector, group: GameObject) {
   const initialCoord = coord
   let attackTimeout: any = null
 
@@ -33,7 +33,7 @@ export default function PlayerDeath(coord: Vector, scene: Scene) {
       }
       attackTimeout = setTimeout(() => attackTimeout = null, CONSTS.CRESCENT_THROTTLE)
       // TODO: use Pool
-      const crescent = HarvestCrescent(Vector(this.width * 2, this.height / 2), this, scene)
+      const crescent = HarvestCrescent(Vector(this.width * 2, this.height / 2), this, group)
       this.addChild(crescent)
     },
   })

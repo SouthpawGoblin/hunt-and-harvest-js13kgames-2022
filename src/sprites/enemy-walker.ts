@@ -1,7 +1,7 @@
-import { collides, Scene, Sprite, Vector } from "kontra";
+import { collides, GameObject, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 
-export default function EnemyWalker(coord: Vector, scene: Scene, jumper: boolean = false) {
+export default function EnemyWalker(coord: Vector, group: GameObject, jumper: boolean = false) {
   const initialCoord = coord
   let attackTimeout: any = null
 
@@ -18,6 +18,7 @@ export default function EnemyWalker(coord: Vector, scene: Scene, jumper: boolean
     type: CONSTS.ENEMY_TYPE,
     health: CONSTS.WALKER_MAX_HEALTH,
     damage: CONSTS.WALKER_DAMAGE,
+    isJumper: jumper,
 
     update: function(dt) {
       if (jumper) {
@@ -30,7 +31,7 @@ export default function EnemyWalker(coord: Vector, scene: Scene, jumper: boolean
           this.y = initialCoord.y
         }
       }
-      for (let obj of scene.objects) {
+      for (let obj of group.children) {
         const sprite = obj as Sprite
         if (sprite.type === CONSTS.PLAYER_TYPE && collides(this, sprite)) {
           if (!attackTimeout) {

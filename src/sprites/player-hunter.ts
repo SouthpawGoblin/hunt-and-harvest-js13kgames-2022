@@ -1,4 +1,4 @@
-import { Scene, Sprite, Vector } from "kontra";
+import { GameObject, Scene, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 import Bullet from './bullet';
 
@@ -28,14 +28,14 @@ export default function PlayerHunter(coord: Vector) {
       }
     },
 
-    shoot: function(scene: Scene) {
+    shoot: function(group: GameObject) {
       if (attackTimeout) {
         return
       }
       attackTimeout = setTimeout(() => attackTimeout = null, CONSTS.BULLET_THROTTLE)
       // TODO: use Pool
-      const bullet = Bullet(Vector(this.x + this.width, this.y - this.height * 0.6), scene)
-      scene.add(bullet)
+      const bullet = Bullet(Vector(this.x + this.width, this.y - this.height * 0.6), group)
+      group.addChild(bullet)
     },
   })
 }

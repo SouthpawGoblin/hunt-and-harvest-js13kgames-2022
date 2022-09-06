@@ -1,4 +1,4 @@
-import { initKeys, initPointer, onKey, onPointer, Scene, Vector } from "kontra"
+import { GameObject, initKeys, initPointer, onKey, onPointer, Scene, Vector } from "kontra"
 import CONSTS from './consts'
 import Director from './director'
 import PlayerHunter from './sprites/player-hunter'
@@ -6,19 +6,21 @@ import PlayerDeath from './sprites/player-death'
 import Land from './sprites/land'
 
 const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
+  const objectGroup = GameObject()
   const scene = Scene({
     id: 'main',
-    objects: [],
+    objects: [objectGroup],
     cullObjects: false,
   })
   
   const land = Land(canvas.height / 2, canvas.width)
   const playerHunter = PlayerHunter(Vector(200, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2))
-  const playerDeath = PlayerDeath(Vector(200, canvas.height / 2 + CONSTS.LAND_THICKNESS / 2), scene)
+  const playerDeath = PlayerDeath(Vector(200, canvas.height / 2 + CONSTS.LAND_THICKNESS / 2), objectGroup)
+  objectGroup.addChild(land)
+  objectGroup.addChild(playerHunter)
+  objectGroup.addChild(playerDeath)
+
   const director = Director(scene)
-  scene.add(land)
-  scene.add(playerHunter)
-  scene.add(playerDeath)
   scene.add(director)
   
   initKeys()
@@ -70,7 +72,7 @@ const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)
   onPointer('up', function(event: MouseEvent) {
     if (event.button === 0) {
       // left click
-      playerHunter.shoot(scene)
+      playerHunter.shoot(objectGroup)
     } else if (event.button === 2) {
       // right click
       playerDeath.harvest()
