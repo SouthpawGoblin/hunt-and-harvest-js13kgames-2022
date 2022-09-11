@@ -4,6 +4,7 @@ import Director from './director'
 import PlayerHunter from './sprites/player-hunter'
 import PlayerDeath from './sprites/player-death'
 import Land from './sprites/land'
+import TheVessel from './sprites/the-vessel'
 
 const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
   const objectGroup = GameObject()
@@ -16,6 +17,10 @@ const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)
   const land = Land(canvas.height / 2, canvas.width)
   const playerHunter = PlayerHunter(Vector(200, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2))
   const playerDeath = PlayerDeath(Vector(200, canvas.height / 2 + CONSTS.LAND_THICKNESS / 2), objectGroup)
+
+  const theVessel = TheVessel(Vector(600, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2), objectGroup)
+  objectGroup.addChild(theVessel)
+
   objectGroup.addChild(land)
   objectGroup.addChild(playerHunter)
   objectGroup.addChild(playerDeath)
@@ -37,34 +42,42 @@ const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)
   onKey(['a', 'left'], function() {
     if (playerHunter.dx === 0) {
       playerHunter.dx = -CONSTS.PLAYER_MOVE_VELOCITY
+      playerHunter.rotation = -CONSTS.UNIT_MOVE_ROTATION
     }
     if (playerDeath.dx === 0) {
       playerDeath.dx = -CONSTS.PLAYER_MOVE_VELOCITY
+      playerDeath.rotation = CONSTS.UNIT_MOVE_ROTATION
     }
   }, { handler: 'keydown' })
   onKey(['a', 'left'], function() {
     if (playerHunter.dx < 0) {
       playerHunter.dx = 0
+      playerHunter.rotation = 0
     }
     if (playerDeath.dx < 0) {
       playerDeath.dx = 0
+      playerDeath.rotation = 0
     }
   }, { handler: 'keyup' })
   
   onKey(['d', 'right'], function() {
     if (playerHunter.dx === 0) {
       playerHunter.dx = CONSTS.PLAYER_MOVE_VELOCITY
+      playerHunter.rotation = CONSTS.UNIT_MOVE_ROTATION
     }
     if (playerDeath.dx === 0) {
       playerDeath.dx = CONSTS.PLAYER_MOVE_VELOCITY
+      playerDeath.rotation = -CONSTS.UNIT_MOVE_ROTATION
     }
   }, { handler: 'keydown' })
   onKey(['d', 'right'], function() {
     if (playerHunter.dx > 0) {
       playerHunter.dx = 0
+      playerHunter.rotation = 0
     }
     if (playerDeath.dx > 0) {
       playerDeath.dx = 0
+      playerDeath.rotation = 0
     }
   }, { handler: 'keyup' })
 

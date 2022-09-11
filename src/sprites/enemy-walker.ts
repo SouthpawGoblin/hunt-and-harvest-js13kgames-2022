@@ -12,6 +12,7 @@ export default function EnemyWalker(coord: Vector, group: GameObject, jumper: bo
     height: CONSTS.WALKER_HEIGHT,
     anchor: { x: 0, y: 1 },
     color: 'green',
+    rotation: -Math.PI / 12,
     dx: -CONSTS.WALKER_MOVE_VELOCITY,
 
     initCoord: initialCoord,
@@ -19,6 +20,16 @@ export default function EnemyWalker(coord: Vector, group: GameObject, jumper: bo
     health: CONSTS.WALKER_MAX_HEALTH,
     damage: CONSTS.WALKER_DAMAGE,
     isJumper: jumper,
+
+    render: function() {
+      const ctx: CanvasRenderingContext2D = this.context
+      ctx.fillStyle = '#379139'
+      ctx.fillRect(0, 0, CONSTS.WALKER_WIDTH, CONSTS.WALKER_HEIGHT)
+      ctx.fillStyle = '#3FBC3D'
+      ctx.fillRect(-50, CONSTS.WALKER_HEIGHT * 0.3, 100, 30)
+      ctx.fillStyle = 'red'
+      ctx.fillRect(0, CONSTS.WALKER_HEIGHT * 0.1, 30, 10)
+    },
 
     update: function(dt) {
       if (jumper) {
