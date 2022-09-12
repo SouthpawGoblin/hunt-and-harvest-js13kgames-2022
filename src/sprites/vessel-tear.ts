@@ -1,25 +1,25 @@
-import { collides, emit, GameObject, Scene, Sprite, Vector } from "kontra";
+import { collides, emit, GameObject, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 
-export default function GhostFire(coord: Vector, group: GameObject) {
+export default function VesselTear(coord: Vector, group: GameObject) {
   const initialCoord = coord
 
   return Sprite({
     x: coord.x,
     y: coord.y,
-    width: CONSTS.GHOST_FIRE_WIDTH,
-    height: CONSTS.GHOST_FIRE_HEIGHT,
-    anchor: { x: 1, y: 0.5 },
+    width: CONSTS.VESSEL_TEAR_WIDTH,
+    height: CONSTS.VESSEL_TEAR_HEIGHT,
+    anchor: { x: 0, y: 0.5 },
     color: 'red',
-    dx: -CONSTS.GHOST_FIRE_VELOCITY,
+    dx: -CONSTS.VESSEL_TEAR_VELOCITY,
 
     type: CONSTS.ATTACK_TYPE,
-    damage: CONSTS.GHOST_FIRE_DAMAGE,
+    damage: CONSTS.VESSEL_TEAR_DAMAGE,
 
     update: function(dt) {
       this.advance(dt)
       
-      if (this.x < initialCoord.x - CONSTS.GHOST_FIRE_MAX_DISTANCE){
+      if (this.x > initialCoord.x + CONSTS.VESSEL_TEAR_MAX_DISTANCE){
         group.removeChild(this)
       } else {
         for (let obj of group.children) {

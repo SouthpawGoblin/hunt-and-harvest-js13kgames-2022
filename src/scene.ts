@@ -4,7 +4,7 @@ import Director from './director'
 import PlayerHunter from './sprites/player-hunter'
 import PlayerDeath from './sprites/player-death'
 import Land from './sprites/land'
-import TheVessel from './sprites/the-vessel'
+import TheVessel from "./sprites/the-vessel"
 
 const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
   const objectGroup = GameObject()
@@ -18,15 +18,15 @@ const initScene = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)
   const playerHunter = PlayerHunter(Vector(200, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2))
   const playerDeath = PlayerDeath(Vector(200, canvas.height / 2 + CONSTS.LAND_THICKNESS / 2), objectGroup)
 
-  const theVessel = TheVessel(Vector(600, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2), objectGroup)
-  objectGroup.addChild(theVessel)
+  // const theVessel = TheVessel(Vector(canvas.width / 4 * 3, canvas.height / 2 - CONSTS.LAND_THICKNESS / 2), objectGroup)
+  // objectGroup.addChild(theVessel)
 
   objectGroup.addChild(land)
   objectGroup.addChild(playerHunter)
   objectGroup.addChild(playerDeath)
 
   const director = Director(scene)
-  scene.add(director)
+  objectGroup.addChild(director)
   
   initKeys()
   onKey('space', function() {

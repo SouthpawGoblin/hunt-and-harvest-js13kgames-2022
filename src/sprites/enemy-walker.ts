@@ -1,11 +1,12 @@
-import { collides, GameObject, Sprite, Vector } from "kontra";
+import { collides, emit, GameObject, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
+import HealthText from "./health-text";
 
 export default function EnemyWalker(coord: Vector, group: GameObject, jumper: boolean = false) {
   const initialCoord = coord
   let attackTimeout: any = null
 
-  return Sprite({
+  const walker = Sprite({
     x: coord.x,
     y: coord.y,
     width: CONSTS.WALKER_WIDTH,
@@ -50,8 +51,7 @@ export default function EnemyWalker(coord: Vector, group: GameObject, jumper: bo
             sprite.health -= this.damage
             console.log('hunter hp', sprite.health)
             if (sprite.health <= 0) {
-              alert('YOU LOSE')
-              // TODO:
+              emit('gameover', false)
             }
           }
           return
@@ -60,4 +60,13 @@ export default function EnemyWalker(coord: Vector, group: GameObject, jumper: bo
       this.advance(dt)
     },
   })
+
+  const healthText = HealthText(
+    Vector(0, -CONSTS.WALKER_HEIGHT - 20),
+    CONSTS.WALKER_MAX_HEALTH,
+    () => walker.health
+  )
+
+  walker.addChild(healthText)
+  return walker
 }

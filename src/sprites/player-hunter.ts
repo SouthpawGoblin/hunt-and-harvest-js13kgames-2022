@@ -1,6 +1,7 @@
 import { GameObject, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 import Bullet from './bullet';
+import HealthText from "./health-text";
 
 export default function PlayerHunter(coord: Vector) {
   const initialCoord = coord
@@ -53,12 +54,18 @@ export default function PlayerHunter(coord: Vector) {
         return
       }
       attackTimeout = setTimeout(() => attackTimeout = null, CONSTS.BULLET_THROTTLE)
-      // TODO: use Pool
       const bullet = Bullet(Vector(this.x + this.width, this.y - this.height * 0.6), group)
       group.addChild(bullet)
     },
   })
 
+  const healthText = HealthText(
+    Vector(0, -CONSTS.PLAYER_HEIGHT - 20),
+    CONSTS.PLAYER_HUNTER_MAX_HEALTH,
+    () => hunter.health
+  )
+
   hunter.addChild(gun)
+  hunter.addChild(healthText)
   return hunter
 }

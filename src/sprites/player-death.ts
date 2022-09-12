@@ -1,6 +1,7 @@
 import { GameObject, Sprite, Vector } from "kontra";
 import CONSTS from "../consts";
 import Scyth from './scyth';
+import HealthText from "./health-text";
 
 export default function PlayerDeath(coord: Vector, group: GameObject) {
   const initialCoord = coord
@@ -14,7 +15,7 @@ export default function PlayerDeath(coord: Vector, group: GameObject) {
     width: CONSTS.PLAYER_WIDTH,
     height: CONSTS.PLAYER_HEIGHT,
     anchor: { x: 0.5, y: 0 },
-    color: 'red',
+    color: '#0000b2',
 
     type: CONSTS.PLAYER_TYPE,
     health: CONSTS.PLAYER_DEATH_MAX_HEALTH,
@@ -39,6 +40,13 @@ export default function PlayerDeath(coord: Vector, group: GameObject) {
     },
   })
 
+  const healthText = HealthText(
+    Vector(0, CONSTS.PLAYER_HEIGHT + 60),
+    CONSTS.PLAYER_DEATH_MAX_HEALTH,
+    () => death.health
+  )
+
   death.addChild(scyth)
+  death.addChild(healthText)
   return death
 }

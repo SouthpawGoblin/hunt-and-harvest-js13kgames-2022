@@ -1,4 +1,4 @@
-import { collides, GameObject, Sprite } from "kontra";
+import { collides, GameObject, Sprite, emit } from "kontra";
 import CONSTS from "../consts";
 
 export default function Scyth(group: GameObject) {
@@ -9,7 +9,7 @@ export default function Scyth(group: GameObject) {
   return Sprite({
     x: 0,
     y: CONSTS.PLAYER_HEIGHT * 0.6,
-    width: 270,
+    width: 320,
     height: 80,
     anchor: { x: 0, y: 0.5 },
     rotation: CONSTS.SCYTH_START_ANGLE,
@@ -20,9 +20,9 @@ export default function Scyth(group: GameObject) {
     render: function() {
       const ctx: CanvasRenderingContext2D = this.context
       ctx.fillStyle = 'brown'
-      ctx.fillRect(-50, 0, 200, 20)
+      ctx.fillRect(-50, 0, 250, 20)
       ctx.fillStyle = 'silver'
-      ctx.fillRect(150, -60, 20, 80)
+      ctx.fillRect(200, -60, 20, 80)
     },
 
     update: function(dt) {
@@ -45,11 +45,15 @@ export default function Scyth(group: GameObject) {
         if (!hit && (attackingOut || attackingBack)) {
           for (let obj of group.children) {
             const sprite = obj as Sprite
-            if (sprite.type === CONSTS.ENEMY_TYPE && collides(this, sprite)) {
+            if ([CONSTS.ENEMY_TYPE, CONSTS.VESSEL_TYPE].includes(sprite.type) && collides(this, sprite)) {
               hit = true
               sprite.health -= this.damage
               if (sprite.health <= 0) {
+                emit('harvest')
                 group.removeChild(sprite)
+                if (sprite.type === CONSTS.VESSEL_TYPE) {
+                  emit('gameover', true)
+                }
               }
             }
           }
