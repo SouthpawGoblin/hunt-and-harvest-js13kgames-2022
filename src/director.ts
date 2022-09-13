@@ -70,7 +70,7 @@ export default function Director(scene: Scene) {
           }
         }
         waveTime = 0
-        nextInterval = CONSTS.ENEMY_SPAWN_INTERVAL + Math.random() * 1000 - 500
+        nextInterval = CONSTS.ENEMY_SPAWN_INTERVAL + Math.random() * 1000 - 800
       }
     },
   })
