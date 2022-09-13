@@ -1,8 +1,8 @@
 {
-  "name": "die-hard-apocalypse-js13k-2022",
+  "name": "hunt-and-harvest-js13kgames-2022",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/SouthpawGoblin/SPACE-craft-js13k-2021.git",
+  "repository": "https://github.com/SouthpawGoblin/hunt-and-harvest-js13kgames-2022.git",
   "author": "Roger Chi <goblin-qyz@163.com>",
   "license": "MIT",
   "private": true,
@@ -18,7 +18,7 @@
   "dependencies": {
     "kontra": "^8.0.0"
   },
-  "description": "die-hard-apocalypse-js13k-2022",
+  "description": "hunt-and-harvest-js13kgames-2022",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
